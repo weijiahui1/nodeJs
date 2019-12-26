@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上传图片</title>
+  <style>
+    span {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <form enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput" />
+  </form>
+
+  <p>
+    <span id="btn">提交</span>
+  </p>
+  <img src="" id="avatarShow" />
+  <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+  <script src="../js/jquery.min.js"></script>
+  <script>
+    $(function () {
+      const CURURL = 'http://localhost:3000'
+      $('#btn').click(function () {
+        var imgVal = $('#fileInput').get(0).files[0] // 获取图片
+        console.log(imgVal)
+        if (imgVal && imgVal != "") {
+          var formData = new FormData(); // 创建一个空的formData对象
+          formData.append('foodImg', imgVal)
+          $.ajax({
+            type: "POST",
+            url: CURURL + "/file/uploadImg", //后台接口
+            dataType: "json",
+            data: formData,
+            cache: false, // 不必须 上传文件不需要缓存
+            processData: false, // 必须 formData对象，不需要对数据做处理
+            contentType: false, // 必须 由于<from>表单构造的FomData对象，且已经声明了属性 enctype="multipart/form-data" 这里要设置成 false
+            success: function (res) {
+              console.log(res)
+              if (res.code == 9999) {
+                alert("上传成功");
+                // 图片显示
+                $("#avatarShow").attr("src", CURURL + res.data.url);
+                $('#fileInput').val('')
+              }
+            },
+            error: function () {
+              alert("上传失败");
+            },
+          });
+        } else {
+          alert("请先选择文件");
+        }
+      })
+
+    })
+  </script>
+</body>
+
+</html>

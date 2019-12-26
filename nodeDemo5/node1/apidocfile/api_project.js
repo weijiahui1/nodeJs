@@ -1,0 +1,1 @@
+define({  "name": "接口文档",  "version": "0.0.0",  "description": "买菜后台管理系统api",  "title": "Custom apiDoc browser title",  "url": "http://192.168.208.213",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2019-12-26T07:57:26.822Z",    "url": "http://apidocjs.com",    "version": "0.18.0"  }});
